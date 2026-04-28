@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="shortcut icon" href="coliseum.svg" type="image/x-icon">
+    <title>greatname.net | Dashboard</title>
+</head>
+<body class="font-serif bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
+    <header class="mt-5">
+        <h1 class="text-4xl font-bold">greatname.net</h1>
+    </header>
+    <main class="flex flex-col gap-4 justify-center flex-1 items-center">
+        <div class="border-3 rounded-lg p-8 w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-4 text-center">Hello, <span id="username"></span>!</h2>
+            <h3 class="text-xl font-bold mb-4 text-center text-emerald-600">200 OK</h3>
+            <p class="text-lg text-mist-500 text-center">You have successfully logged in to your greatname.net account.</p>
+        </div>
+    </main>
+    <footer class="mb-5">
+        <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
+    </footer>
+    <script src="session.js"></script>
+    <script src="year.js"></script>
+</body>
+</html>
