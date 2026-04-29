@@ -55,6 +55,7 @@ async function passwordPlaceholder() {
 usernamePlaceholder();
 passwordPlaceholder();
 
+/*
 // event listener for login button
 loginButton.addEventListener("click", () => {
     usernameField.value
@@ -90,3 +91,4 @@ registerButton.addEventListener("click", () => {
         alert("Please enter both a username and password.");
     }
 });
+*/
