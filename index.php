@@ -1,4 +1,9 @@
-<?php include 'auth.php'; ?>
+<?php include 'auth.php';
+if (isset($_COOKIE['loggedIn']) && $_COOKIE['loggedIn'] === "1") {
+    header("Location: dashboard.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
