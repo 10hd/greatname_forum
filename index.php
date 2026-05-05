@@ -18,7 +18,7 @@ if (isset($_COOKIE['loggedIn']) && $_COOKIE['loggedIn'] === "1") {
         <h1 class="text-4xl font-bold">greatname.net</h1>
     </header>
     <main class="flex flex-col gap-4 justify-center flex-1 items-center">
-        <form action="auth.php" method="POST" class="border-3 rounded-lg p-8 w-full max-w-md">
+        <form action="auth.php" method="POST" class="border-3 rounded-lg p-8 w-full max-w-md bg-zinc-950">
             <h2 class="text-2xl font-bold mb-4 text-center">Registration & Login</h2>
             <div>
                 <p class="text-lg text-mist-400">Enter your username</p>
@@ -27,16 +27,18 @@ if (isset($_COOKIE['loggedIn']) && $_COOKIE['loggedIn'] === "1") {
             <div>
                 <p class="text-lg text-mist-400">Enter your password</p>
                 <input class="bg-mist-200 text-black rounded w-full p-2" type="password" name="passwordField" id="passwordInput">
-                <a href="resetPassword.php" class="text-blue-500 opacity-50 underline mb-12 cursor-pointer">Forgot your password?</a>
+                <a href="resetPassword.php" class="text-blue-500 opacity-50 mb-12 cursor-pointer hover:underline">Forgot your password?</a>
             </div>
             <div class="flex align-items-center justify-center gap-2">
-                <button name="action" value="login" type="submit" id="loginButton" class="bg-mist-700 hover:bg-mist-600 text-white font-bold w-30 py-2 px-4 rounded hover:cursor-pointer">Login</button>
-                <button name="action" value="register" type="submit" id="registerButton" class="bg-mist-700 hover:bg-mist-600 text-white font-bold w-30 py-2 px-4 rounded hover:cursor-pointer">Register</button>
+                <button name="action" value="login" type="submit" id="loginButton" class="mt-6 bg-mist-700 hover:bg-mist-600 text-white font-bold w-30 py-2 px-4 rounded hover:cursor-pointer">Login</button>
+                <button name="action" value="register" type="submit" id="registerButton" class="mt-6 bg-mist-700 hover:bg-mist-600 text-white font-bold w-30 py-2 px-4 rounded hover:cursor-pointer">Register</button>
             </div>
             <?php
             $msg = "";
             if (isset($_GET["error"]) && $_GET["error"] === "invalid") {
                 $msg = "Invalid username or password.";
+            } elseif (isset($_GET["error"])) {
+                $msg = "An error occurred: " . htmlspecialchars($_GET["error"]);
             }
             ?>
             <p class="text-md font-bold mt-2 text-center text-red-400" id="errorText"><?php echo $msg; ?></p>

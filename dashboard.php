@@ -1,7 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["username"])) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="redirect.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -10,20 +17,19 @@
 </head>
 <body class="font-serif bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
     <header class="mt-5">
-        <h1 class="text-4xl font-bold">greatname.net</h1>
+        <h1 class="text-4xl font-bold logo">greatname.net</h1>
     </header>
     <main class="flex flex-col gap-4 justify-center flex-1 items-center">
-        <div class="border-3 rounded-lg p-8 w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-4 text-center">Hello, <span id="username"></span>!</h2>
-            <h3 class="text-xl font-bold mb-4 text-center text-emerald-600">200 OK</h3>
-            <p class="text-lg text-mist-500 text-center">You have successfully logged in to your greatname.net account.</p>
-            <a href="index.php" class="text-lg text-blue-500 text-center cursor-pointer" onclick="document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';">Log out</a>
+        <div class="border-3 rounded-lg p-8 w-full max-w-md bg-zinc-950">
+            <h2 class="text-2xl font-bold mb-4 text-center"><span id="date"></span>, <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
+            <h3 class="text-xl font-bold mb-4 text-center text-emerald-600">You have successfully logged in to your greatname.net account.</h3>
+            <h4 class="text-xl mb-4 text-center text-mist-400">Click <a href="profile.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">here</a> to view your profile or log out.</h4>
         </div>
     </main>
     <footer class="mb-5">
         <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
     </footer>
-    <script src="session.js"></script>
+    <script src="timeofday.js"></script>
     <script src="year.js"></script>
 </body>
 </html>

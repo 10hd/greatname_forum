@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'db.php';
 
 $options = [
@@ -15,8 +16,8 @@ if ($dbconn) {
             $insertResults = pg_query_params($dbconn, $insertQuery, [$_POST["usernameField"], $registerHash]);
 
             if ($insertResults) {
-                setcookie("loggedIn", "1", time() + 86400, "/");
-                header("Location: dashboard.html");
+                $_SESSION["username"] = $_POST["usernameField"];
+                header("Location: dashboard.php");
                 exit();
             } else {
                 header("Location: index.php?error=" . urlencode(pg_last_error($dbconn)));
@@ -29,8 +30,8 @@ if ($dbconn) {
             if ($selectResults) {
                 $row = pg_fetch_assoc($selectResults);
                 if ($row && password_verify($_POST["passwordField"], $row["password_hash"])) {
-                    setcookie("loggedIn", "1", time() + 86400, "/");
-                    header("Location: dashboard.html");
+                    $_SESSION["username"] = $_POST["usernameField"];
+                    header("Location: dashboard.php");
                     exit();
                 } else {
                     header("Location: index.php?error=invalid");
