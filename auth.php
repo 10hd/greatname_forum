@@ -51,18 +51,18 @@ if ($dbconn) {
                 header("Location: dashboard.php");
                 exit();
             } else {
-                header("Location: index.php?error=" . urlencode(pg_last_error($dbconn)));
+                header("Location: index.php?error=" . urlencode("db_failed"));
                 exit();
             }
         } elseif ($_POST["action"] === "login") {
             $username = trim($_POST["usernameField"]);
-            $selectQuery = "SELECT password_hash FROM accounts WHERE name = $1";
+            $selectQuery = "SELECT name, password_hash FROM accounts WHERE name = $1";
             $selectResults = pg_query_params($dbconn, $selectQuery, [$username]);
 
             if ($selectResults) {
                 $row = pg_fetch_assoc($selectResults);
                 if ($row && password_verify($_POST["passwordField"], $row["password_hash"])) {
-                    $_SESSION["username"] = $username;
+                    $_SESSION["username"] = $row["name"];
                     header("Location: dashboard.php");
                     exit();
                 } else {
@@ -70,7 +70,7 @@ if ($dbconn) {
                     exit();
                 }
             } else {
-                header("Location: index.php?error=" . urlencode(pg_last_error($dbconn)));
+                header("Location: index.php?error=" . urlencode("db_failed"));
                 exit();
             }
         }

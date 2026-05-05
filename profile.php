@@ -48,11 +48,36 @@ if ($result) {
 
                     ?>;"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
                 <br>
-                User ID: <span class="text-mist-400"><?php echo $user['user_id']; ?></span>
-                <br>
                 Account created: <span class="text-mist-400"><?php $date = new DateTime($user['created_at']); echo $date->format('d/m/Y H:i'); ?></span>
                 <br>
-                Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Active'; ?></span>
+                User ID: <span class="text-mist-400"><?php echo $user['user_id']; ?></span>
+                <br>
+                Titles: 
+                <span class="text-mist-400">
+                    <?php
+                        $titles = [];
+                        if ($user['is_admin'] === 't') {
+                            $titles[] = '<span style="color: red;">admin</span>';
+                        }
+                        if (!empty($user['has_title'])) {
+                            $raw_titles = explode(',', $user['has_title']);
+                            foreach ($raw_titles as $title) {
+                                $cleanTitle = strtolower(trim($title));
+                                $color = ($cleanTitle === 'tester') ? 'magenta' : 'inherit';
+                                $displayTitle = htmlspecialchars($cleanTitle);
+                                $titles[] = "<span style=\"color: $color;\">$displayTitle</span>";
+                            }
+                        }
+
+                        if (empty($titles)) {
+                            echo 'None';
+                        } else {
+                            echo implode(', ', $titles);
+                        }
+                    ?>
+                </span>
+                <br>
+                Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Alive'; ?></span>
             </h3>
             <h4 class="text-xl font-bold mb-2">Description:</h4>
             <p class="text-mist-300 text-lg mb-4">
