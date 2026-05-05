@@ -44,7 +44,7 @@ if (isset($_COOKIE['loggedIn']) && $_COOKIE['loggedIn'] === "1") {
             <p class="text-md font-bold mt-2 text-center text-red-400" id="errorText"><?php echo $msg; ?></p>
         </form>
     </main>
-    <footer class="mb-5">
+    <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>

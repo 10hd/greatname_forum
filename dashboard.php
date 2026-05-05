@@ -26,7 +26,7 @@ if (!isset($_SESSION["username"])) {
             <h4 class="text-xl mb-4 text-center text-mist-400">Click <a href="profile.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">here</a> to view your profile or log out.</h4>
         </div>
     </main>
-    <footer class="mb-5">
+    <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
     </footer>
     <script src="timeofday.js"></script>

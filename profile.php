@@ -48,7 +48,7 @@ if ($result) {
             <a href="logout.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">Log out</a>
         </div>
     </main>
-    <footer class="mb-5">
+    <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
     </footer>
     <script src="year.js"></script>
