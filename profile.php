@@ -37,11 +37,18 @@ if ($result) {
                 <span
                     class="text-mist-400"
                     style="color: <?php
+                    $currentTitles = strtolower($user['has_title'] ?? '');
 
                     if ($user['is_admin'] === 't') {
-                        echo 'red';
-                    } elseif ($user['has_title'] === 'tester') {
-                        echo 'magenta';
+                        echo '#FF0000';
+                    } elseif (str_contains($currentTitles, 'developer')) {
+                        echo '#008CFF';
+                    } elseif (str_contains($currentTitles, 'alpha')) {
+                        echo '#FF9CF4';
+                    } elseif (str_contains($currentTitles, 'tester')) {
+                        echo '#8CECFF';
+                    } elseif (str_contains($currentTitles, 'sponsor')) {
+                        echo '#5ED627';
                     } else {
                         echo 'inherit';
                     }
@@ -57,20 +64,21 @@ if ($result) {
                     <?php
                         $titles = [];
                         if ($user['is_admin'] === 't') {
-                            $titles[] = '<span style="color: red;">admin</span>';
+                            $titles[] = '<span style="color: #FF0000;">admin</span>';
                         }
                         if (!empty($user['has_title'])) {
                             $raw_titles = explode(',', $user['has_title']);
                             foreach ($raw_titles as $title) {
                                 $cleanTitle = strtolower(trim($title));
-                                $color = ($cleanTitle === 'tester') ? 'magenta' : 'inherit';
+                                $color = ($cleanTitle === 'developer') ? '#008CFF' : (($cleanTitle === 'alpha') ? '#FF9CF4' : (($cleanTitle === 'tester') ? '#8CECFF' : (($cleanTitle === 'sponsor') ? '#5ED627' : 'inherit')));
+                                $extra = ($cleanTitle === 'developer') ? '' : (($cleanTitle === 'alpha') ? '' : (($cleanTitle === 'tester') ? '' : (($cleanTitle === 'sponsor') ? 'text-shadow: 0 0 12px rgb(0, 255, 64);' : '')));
                                 $displayTitle = htmlspecialchars($cleanTitle);
-                                $titles[] = "<span style=\"color: $color;\">$displayTitle</span>";
+                                $titles[] = "<span style=\"color: $color; $extra\">$displayTitle</span>";
                             }
                         }
 
                         if (empty($titles)) {
-                            echo 'None';
+                            echo 'none';
                         } else {
                             echo implode(', ', $titles);
                         }
@@ -84,8 +92,8 @@ if ($result) {
                 <?php echo htmlspecialchars($user['description'] ?? 'No description set.'); ?>
                 <a href="description.php" class="text-blue-500 hover:underline">Edit Description</a>
             </p>
-            <a href="logout.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">Log out</a>
         </div>
+        <a href="logout.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">Log out</a>
     </main>
     <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
