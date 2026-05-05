@@ -19,9 +19,18 @@ if ($dbconn) {
                 exit();
             }
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                header("Location: index.php?error=invalid_email");
+            if (!preg_match("/^[a-zA-Z]+$/", $username)) {
+                header("Location: index.php?error=invalid_username_format");
                 exit();
+            }
+
+            if (!empty($email)) {
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    header("Location: index.php?error=invalid_email");
+                    exit();
+                }
+            } else {
+                $email = null;
             }
 
             $checkQuery = "SELECT 1 FROM accounts WHERE name = $1";

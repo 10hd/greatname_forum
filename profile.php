@@ -7,7 +7,7 @@ if (!isset($_SESSION["username"])) {
     exit();
 }
 
-$query = "SELECT user_id, created_at, deactivated, is_admin FROM accounts WHERE name = $1";
+$query = "SELECT user_id, created_at, deactivated, is_admin, has_title FROM accounts WHERE name = $1";
 $result = pg_query_params($dbconn, $query, [$_SESSION["username"]]);
 
 if ($result) {
@@ -33,7 +33,20 @@ if ($result) {
         <div class="border-3 rounded-lg p-8 w-full max-w-md bg-zinc-950">
             <h2 class="text-2xl font-bold mb-2">Profile info:</h2>
             <h3 class="text-xl mb-4 text-mist-300">
-                Username: <span class="text-mist-400" style="color: <?php echo ($user['is_admin'] === 't') ? 'red' : 'inherit'; ?>;"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
+                Username: 
+                <span
+                    class="text-mist-400"
+                    style="color: <?php
+
+                    if ($user['is_admin'] === 't') {
+                        echo 'red';
+                    } elseif ($user['has_title'] === 'tester') {
+                        echo 'magenta';
+                    } else {
+                        echo 'inherit';
+                    }
+
+                    ?>;"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
                 <br>
                 User ID: <span class="text-mist-400"><?php echo $user['user_id']; ?></span>
                 <br>
