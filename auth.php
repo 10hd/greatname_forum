@@ -11,12 +11,27 @@ $options = [
 if ($dbconn) {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($_POST["action"] === "register") {
+            $username = trim($_POST["usernameField"]);
+
+            if (empty($username) || empty($_POST["passwordField"])) {
+                header("Location: index.php?error=empty_fields");
+                exit();
+            }
+
+            $checkQuery = "SELECT 1 FROM accounts WHERE name = $1";
+            $checkResult = pg_query_params($dbconn, $checkQuery, [$username]);
+
+            if (pg_fetch_row($checkResult)) {
+                header("Location: index.php?error=username_taken");
+                exit();
+            }
+
             $registerHash = password_hash($_POST["passwordField"], PASSWORD_ARGON2ID, $options);
             $insertQuery = "INSERT INTO accounts (name, password_hash) VALUES ($1, $2)";
-            $insertResults = pg_query_params($dbconn, $insertQuery, [$_POST["usernameField"], $registerHash]);
+            $insertResults = pg_query_params($dbconn, $insertQuery, [$username, $registerHash]);
 
             if ($insertResults) {
-                $_SESSION["username"] = $_POST["usernameField"];
+                $_SESSION["username"] = $username;
                 header("Location: dashboard.php");
                 exit();
             } else {
@@ -24,13 +39,14 @@ if ($dbconn) {
                 exit();
             }
         } elseif ($_POST["action"] === "login") {
+            $username = trim($_POST["usernameField"]);
             $selectQuery = "SELECT password_hash FROM accounts WHERE name = $1";
-            $selectResults = pg_query_params($dbconn, $selectQuery, [$_POST["usernameField"]]);
+            $selectResults = pg_query_params($dbconn, $selectQuery, [$username]);
 
             if ($selectResults) {
                 $row = pg_fetch_assoc($selectResults);
                 if ($row && password_verify($_POST["passwordField"], $row["password_hash"])) {
-                    $_SESSION["username"] = $_POST["usernameField"];
+                    $_SESSION["username"] = $username;
                     header("Location: dashboard.php");
                     exit();
                 } else {
