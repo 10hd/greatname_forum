@@ -32,18 +32,19 @@ if ($result) {
     <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full">
         <div class="border-3 rounded-lg p-8 w-full max-w-md bg-zinc-950">
             <h2 class="text-2xl font-bold mb-2">Profile info:</h2>
-            <h3 class="text-xl mb-4 text-mist-400">
-                Username: <span style="color: <?php echo ($user['is_admin'] === 't') ? 'red' : 'inherit'; ?>;"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
+            <h3 class="text-xl mb-4 text-mist-300">
+                Username: <span class="text-mist-400" style="color: <?php echo ($user['is_admin'] === 't') ? 'red' : 'inherit'; ?>;"><?php echo htmlspecialchars($_SESSION["username"]); ?></span>
                 <br>
-                User ID: <?php echo $user['user_id']; ?>
+                User ID: <span class="text-mist-400"><?php echo $user['user_id']; ?></span>
                 <br>
-                Account created: <?php $date = new DateTime($user['created_at']); echo $date->format('d/m/Y H:i'); ?>
+                Account created: <span class="text-mist-400"><?php $date = new DateTime($user['created_at']); echo $date->format('d/m/Y H:i'); ?></span>
                 <br>
-                Account status: <?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Active'; ?>
+                Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Active'; ?></span>
             </h3>
             <h4 class="text-xl font-bold mb-2">Description:</h4>
-            <p class="text-mist-400 text-lg mb-4">
-                description goes here i think
+            <p class="text-mist-300 text-lg mb-4">
+                <?php echo htmlspecialchars($user['description'] ?? 'No description set.'); ?>
+                <a href="description.php" class="text-blue-500 hover:underline">Edit Description</a>
             </p>
             <a href="logout.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">Log out</a>
         </div>

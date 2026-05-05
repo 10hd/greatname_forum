@@ -12,9 +12,15 @@ if ($dbconn) {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($_POST["action"] === "register") {
             $username = trim($_POST["usernameField"]);
+            $email = trim($_POST["emailField"]);
 
             if (empty($username) || empty($_POST["passwordField"])) {
                 header("Location: index.php?error=empty_fields");
+                exit();
+            }
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                header("Location: index.php?error=invalid_email");
                 exit();
             }
 
@@ -27,8 +33,9 @@ if ($dbconn) {
             }
 
             $registerHash = password_hash($_POST["passwordField"], PASSWORD_ARGON2ID, $options);
-            $insertQuery = "INSERT INTO accounts (name, password_hash) VALUES ($1, $2)";
-            $insertResults = pg_query_params($dbconn, $insertQuery, [$username, $registerHash]);
+
+            $insertQuery = "INSERT INTO accounts (name, email, password_hash) VALUES ($1, $2, $3)";
+            $insertResults = pg_query_params($dbconn, $insertQuery, [$username, $email, $registerHash]);
 
             if ($insertResults) {
                 $_SESSION["username"] = $username;

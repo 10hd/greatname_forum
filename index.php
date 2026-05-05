@@ -25,6 +25,10 @@ if (isset($_COOKIE['loggedIn']) && $_COOKIE['loggedIn'] === "1") {
                 <input class="bg-mist-200 text-black rounded mb-4 w-full p-2" type="text" name="usernameField" id="usernameInput">
             </div>
             <div>
+                <p class="text-lg text-mist-400">Enter Email <span class="text-sm">(optional and not required for logging in)</span></p>
+                <input class="bg-mist-200 text-black rounded mb-4 w-full p-2" type="text" name="emailField" id="emailInput">
+            </div>
+            <div>
                 <p class="text-lg text-mist-400">Enter your password</p>
                 <input class="bg-mist-200 text-black rounded w-full p-2" type="password" name="passwordField" id="passwordInput">
                 <a href="resetPassword.php" class="text-blue-500 opacity-50 mb-12 cursor-pointer hover:underline">Forgot your password?</a>
