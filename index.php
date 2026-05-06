@@ -11,9 +11,10 @@ if (isset($_COOKIE['loggedIn']) && $_COOKIE['loggedIn'] === "1") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="shortcut icon" href="coliseum.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <title>greatname.net | Registration</title>
 </head>
-<body class="font-serif bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
+<body class="bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
     <header class="mt-5">
         <h1 class="text-4xl font-bold">greatname.net</h1>
     </header>

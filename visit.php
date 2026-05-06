@@ -24,9 +24,10 @@ if ($result && pg_num_rows($result) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="shortcut icon" href="coliseum.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <title>greatname.net | <?php echo htmlspecialchars($user['name']); ?>'s Profile</title>
 </head>
-<body class="font-serif bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
+<body class="bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
     <header class="mt-5">
         <h1 class="text-4xl font-bold logo">greatname.net</h1>
     </header>
@@ -43,7 +44,7 @@ if ($result && pg_num_rows($result) > 0) {
                     if ($user['is_admin'] === 't') {
                         echo '#FF0000';
                     } elseif (str_contains($currentTitles, 'developer')) {
-                        echo '#008CFF';
+                        echo '#780a78';
                     } elseif (str_contains($currentTitles, 'alpha')) {
                         echo '#FF9CF4';
                     } elseif (str_contains($currentTitles, 'tester')) {
@@ -71,7 +72,7 @@ if ($result && pg_num_rows($result) > 0) {
                             $raw_titles = explode(',', $user['has_title']);
                             foreach ($raw_titles as $title) {
                                 $cleanTitle = strtolower(trim($title));
-                                $color = ($cleanTitle === 'developer') ? '#008CFF' : (($cleanTitle === 'alpha') ? '#FF9CF4' : (($cleanTitle === 'tester') ? '#8CECFF' : (($cleanTitle === 'sponsor') ? '#5ED627' : 'inherit')));
+                                $color = ($cleanTitle === 'developer') ? '#780a78' : (($cleanTitle === 'alpha') ? '#FF9CF4' : (($cleanTitle === 'tester') ? '#8CECFF' : (($cleanTitle === 'sponsor') ? '#5ED627' : 'inherit')));
                                 $extra = ($cleanTitle === 'developer') ? '' : (($cleanTitle === 'alpha') ? '' : (($cleanTitle === 'tester') ? '' : (($cleanTitle === 'sponsor') ? 'text-shadow: 0 0 12px rgb(0, 255, 64);' : '')));
                                 $displayTitle = htmlspecialchars($cleanTitle);
                                 $titles[] = "<span style=\"color: $color; $extra\">$displayTitle</span>";
@@ -93,7 +94,11 @@ if ($result && pg_num_rows($result) > 0) {
                 <?php echo htmlspecialchars($user['description'] ?? 'No description set.'); ?>
             </p>
         </div>
-        <a href="logout.php" class="text-lg text-blue-500 text-center cursor-pointer hover:underline">Log out</a>
+        <div class="flex gap-4 mt-2">
+            <a href="dashboard.php" class="text-blue-500 text-lg hover:underline">Back</a>
+            <span class="text-mist-500">|</span>
+            <a href="logout.php" class="text-blue-500 text-lg hover:underline">Log out</a>
+        </div>
     </main>
     <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>

@@ -17,9 +17,10 @@ $result = pg_query($dbconn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="shortcut icon" href="coliseum.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
     <title>greatname.net | Dashboard</title>
 </head>
-<body class="font-serif bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
+<body class="bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
     <header class="mt-5">
         <h1 class="text-4xl font-bold logo">greatname.net</h1>
     </header>
@@ -30,16 +31,16 @@ $result = pg_query($dbconn, $query);
         </div>
 
         <div class="border-3 rounded-lg p-6 w-full bg-zinc-950">
-            <h2 class="text-xl font-bold mb-4 border-b border-zinc-800 pb-2">Users</h2>
+            <h2 class="text-xl font-bold mb-4 border-b border-mist-400 pb-2">ID list</h2>
             <ul class="flex flex-col gap-2">
                 <?php 
                 while ($row = pg_fetch_assoc($result)): 
                 ?>
-                    <li class="flex items-center gap-3 py-1 border-b border-zinc-900 last:border-0">
-                        <span class="text-zinc-600 text-sm w-8">#<?php echo $row['user_id']; ?></span>
+                    <li class="flex items-center gap-3 py-1 px-2 rounded hover:bg-zinc-900">
+                        <span class="text-mist-400 text-md">id: <?php echo $row['user_id']; ?></span>
                         <a href="visit.php?id=<?php echo $row['user_id']; ?>" 
                            class="text-lg text-blue-500 hover:underline">
-                            <?php echo htmlspecialchars($row['name']); ?>
+                            <?php echo htmlspecialchars($row['name']);?>
                         </a>
                     </li>
                 <?php endwhile; ?>
@@ -47,9 +48,9 @@ $result = pg_query($dbconn, $query);
         </div>
 
         <div class="flex gap-4 mt-2">
-            <a href="profile.php" class="text-blue-500 hover:underline">View My Profile</a>
-            <span class="text-zinc-800">|</span>
-            <a href="logout.php" class="text-blue-500 hover:underline">Log out</a>
+            <a href="profile.php" class="text-blue-500 text-lg hover:underline">View My Profile</a>
+            <span class="text-mist-500">|</span>
+            <a href="logout.php" class="text-blue-500 text-lg hover:underline">Log out</a>
         </div>
     </main>
 
