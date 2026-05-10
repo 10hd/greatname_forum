@@ -38,7 +38,7 @@ $result = pg_query($dbconn, $query);
                 ?>
                     <li class="flex items-center gap-3 py-1 px-2 rounded hover:bg-zinc-900">
                         <span class="text-mist-400 text-md px-1">uid <?php echo $row['user_id']; ?>:</span>
-                        <a href="visit.php?id=<?php echo $row['user_id']; ?>" 
+                        <a href="visit.php?id=<?php echo $row['name']; ?>" 
                            class="text-lg text-blue-500 hover:underline">
                             <?php echo htmlspecialchars($row['name']);?>
                         </a>

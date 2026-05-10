@@ -5,10 +5,10 @@ include 'db.php';
 $target_id = $_GET['id'] ?? null;
 
 if (!$target_id) {
-    die("No user ID specified.");
+    die("No username specified.");
 }
 
-$query = "SELECT user_id, name, created_at, deactivated, is_admin, has_title FROM accounts WHERE user_id = $1";
+$query = "SELECT user_id, name, created_at, deactivated, is_admin, has_title FROM accounts WHERE name = $1";
 $result = pg_query_params($dbconn, $query, [$target_id]);
 
 if ($result && pg_num_rows($result) > 0) {
