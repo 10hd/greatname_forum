@@ -26,10 +26,6 @@ $result = pg_query($dbconn, $query);
     </header>
 
     <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full max-w-lg px-4">
-        <div class="text-center mb-2">
-            <h2 class="text-2xl font-bold mt-4"><span id="date"></span>, <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
-        </div>
-
         <div class="p-6 w-full">
             <h2 class="text-xl font-bold mb-4 border-b border-mist-400 pb-2 px-2">ID list</h2>
             <ul class="flex flex-col gap-2">
@@ -58,7 +54,6 @@ $result = pg_query($dbconn, $query);
         <p>Copyright &copy; <span id="year"></span> greatname. All rights reserved.</p>
     </footer>
 
-    <script src="timeofday.js"></script>
     <script src="year.js"></script>
 </body>
 </html>

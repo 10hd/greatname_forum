@@ -31,6 +31,10 @@ if ($result) {
         <h1 class="text-4xl font-bold">great<span class="text-[#6674b2]">name</span>.net</h1>
     </header>
     <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full max-w-lg">
+        <div class="text-center mb-2">
+            <h2 class="text-2xl font-bold mt-4"><span id="date"></span>, <?php echo htmlspecialchars($_SESSION["username"]); ?>!</h2>
+        </div>
+
         <div class="p-8 w-full">
             <h2 class="text-2xl font-bold mb-2">Profile info</h2>
             <h3 class="text-xl mb-4 text-mist-300">
@@ -103,6 +107,7 @@ if ($result) {
     <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> greatname. All rights reserved.</p>
     </footer>
+    <script src="timeofday.js"></script>
     <script src="year.js"></script>
 </body>
 </html>
