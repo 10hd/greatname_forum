@@ -26,13 +26,13 @@ if ($result) {
     <link rel="stylesheet" href="style.css">
     <title>greatname.net | Profile</title>
 </head>
-<body class="bg-slate-950 text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
+<body class="bg-black text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
     <header class="mt-5">
-        <h1 class="text-4xl font-bold logo">greatname.net</h1>
+        <h1 class="text-4xl font-bold">great<span class="text-[#6674b2]">name</span>.net</h1>
     </header>
-    <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full">
-        <div class="border-3 rounded-lg p-8 w-full max-w-md bg-zinc-950">
-            <h2 class="text-2xl font-bold mb-2">Profile info:</h2>
+    <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full max-w-lg">
+        <div class="p-8 w-full">
+            <h2 class="text-2xl font-bold mb-2">Profile info</h2>
             <h3 class="text-xl mb-4 text-mist-300">
                 Username: 
                 <span
@@ -96,12 +96,12 @@ if ($result) {
         </div>
         <div class="flex gap-4 mt-2">
             <a href="dashboard.php" class="text-blue-500 text-lg hover:underline">Back</a>
-            <span class="text-mist-500">|</span>
+            <span class="text-mist-500 cursor-default">|</span>
             <a href="logout.php" class="text-blue-500 text-lg hover:underline">Log out</a>
         </div>
     </main>
     <footer class="mb-5 w-full text-center">
-        <p>Copyright &copy; <span id="year"></span> <span class="text-[#6674b2] font-bold">greatname</span>. All rights reserved.</p>
+        <p>Copyright &copy; <span id="year"></span> greatname. All rights reserved.</p>
     </footer>
     <script src="year.js"></script>
 </body>
