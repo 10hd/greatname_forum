@@ -89,6 +89,7 @@ if ($result) {
                         }
                     ?>
                 </span>
+                <a href="titles.html" class="ml-4 text-blue-500 text-lg hover:underline">Title Info</a>
                 <br>
                 Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Alive'; ?></span>
             </h3>
