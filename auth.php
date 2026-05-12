@@ -15,18 +15,18 @@ if ($dbconn) {
             $email = trim($_POST["emailField"]);
 
             if (empty($username) || empty($_POST["passwordField"])) {
-                header("Location: index.php?error=empty_fields");
+                header("Location: /?error=empty_fields");
                 exit();
             }
 
             if (!preg_match("/^[a-zA-Z]+$/", $username)) {
-                header("Location: index.php?error=invalid_username_format");
+                header("Location: /?error=invalid_username_format");
                 exit();
             }
 
             if (!empty($email)) {
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    header("Location: index.php?error=invalid_email");
+                    header("Location: /?error=invalid_email");
                     exit();
                 }
             } else {
@@ -37,7 +37,7 @@ if ($dbconn) {
             $checkResult = pg_query_params($dbconn, $checkQuery, [$username]);
 
             if (pg_fetch_row($checkResult)) {
-                header("Location: index.php?error=username_taken");
+                header("Location: /?error=username_taken");
                 exit();
             }
 
@@ -48,10 +48,10 @@ if ($dbconn) {
 
             if ($insertResults) {
                 $_SESSION["username"] = $username;
-                header("Location: dashboard.php");
+                header("Location: /dashboard");
                 exit();
             } else {
-                header("Location: index.php?error=" . urlencode("db_failed"));
+                header("Location: /?error=" . urlencode("db_failed"));
                 exit();
             }
         } elseif ($_POST["action"] === "login") {
@@ -63,14 +63,14 @@ if ($dbconn) {
                 $row = pg_fetch_assoc($selectResults);
                 if ($row && password_verify($_POST["passwordField"], $row["password_hash"])) {
                     $_SESSION["username"] = $row["name"];
-                    header("Location: dashboard.php");
+                    header("Location: /dashboard");
                     exit();
                 } else {
-                    header("Location: index.php?error=invalid");
+                    header("Location: /?error=invalid");
                     exit();
                 }
             } else {
-                header("Location: index.php?error=" . urlencode("db_failed"));
+                header("Location: /?error=" . urlencode("db_failed"));
                 exit();
             }
         }

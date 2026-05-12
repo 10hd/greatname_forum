@@ -3,7 +3,7 @@ session_start();
 include 'db.php';
 
 if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
+    header("Location: /");
     exit();
 }
 
@@ -34,7 +34,7 @@ $result = pg_query($dbconn, $query);
                 ?>
                     <li class="flex items-center gap-3 py-1 px-2 rounded hover:bg-zinc-900">
                         <span class="text-mist-400 text-md px-1">uid <?php echo $row['user_id']; ?>:</span>
-                        <a href="visit.php?id=<?php echo $row['name']; ?>" 
+                        <a href="/visit?id=<?php echo $row['name']; ?>" 
                            class="text-lg text-blue-500 hover:underline">
                             <?php echo htmlspecialchars($row['name']);?>
                         </a>
@@ -44,7 +44,7 @@ $result = pg_query($dbconn, $query);
         </div>
 
         <div class="flex gap-4 mt-2">
-            <a href="profile.php" class="text-blue-500 text-lg hover:underline">View My Profile</a>
+            <a href="/profile" class="text-blue-500 text-lg hover:underline">View My Profile</a>
             <span class="text-mist-500 cursor-default">|</span>
             <a href="logout.php" class="text-blue-500 text-lg hover:underline">Log out</a>
         </div>

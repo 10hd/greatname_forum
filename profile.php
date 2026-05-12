@@ -3,7 +3,7 @@ session_start();
 include 'db.php';
 
 if (!isset($_SESSION["username"])) {
-    header("Location: index.php");
+    header("Location: /");
     exit();
 }
 
@@ -89,7 +89,6 @@ if ($result) {
                         }
                     ?>
                 </span>
-                <a href="titles.html" class="ml-4 text-blue-500 text-lg hover:underline">Title Info</a>
                 <br>
                 Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Alive'; ?></span>
             </h3>
@@ -100,9 +99,11 @@ if ($result) {
             </p>
         </div>
         <div class="flex gap-4 mt-2">
-            <a href="dashboard.php" class="text-blue-500 text-lg hover:underline">Back</a>
+            <a href="/dashboard" class="text-blue-500 text-lg hover:underline">Back</a>
             <span class="text-mist-500 cursor-default">|</span>
             <a href="logout.php" class="text-blue-500 text-lg hover:underline">Log out</a>
+            <span class="text-mist-500 cursor-default">|</span>
+            <a href="titles.html" class="text-blue-500 text-lg hover:underline">Title Info</a>
         </div>
     </main>
     <footer class="mb-5 w-full text-center">
