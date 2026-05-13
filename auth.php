@@ -43,11 +43,13 @@ if ($dbconn) {
 
             $registerHash = password_hash($_POST["passwordField"], PASSWORD_ARGON2ID, $options);
 
-            $insertQuery = "INSERT INTO accounts (name, email, password_hash) VALUES ($1, $2, $3)";
+            $insertQuery = "INSERT INTO accounts (name, email, password_hash) VALUES ($1, $2, $3) RETURNING user_id";
             $insertResults = pg_query_params($dbconn, $insertQuery, [$username, $email, $registerHash]);
 
             if ($insertResults) {
+                $row = pg_fetch_assoc($insertResults);
                 $_SESSION["username"] = $username;
+                $_SESSION["user_id"] = $row["user_id"];
                 header("Location: /dashboard");
                 exit();
             } else {
@@ -56,13 +58,14 @@ if ($dbconn) {
             }
         } elseif ($_POST["action"] === "login") {
             $username = trim($_POST["usernameField"]);
-            $selectQuery = "SELECT name, password_hash FROM accounts WHERE name = $1";
+            $selectQuery = "SELECT user_id, name, password_hash FROM accounts WHERE name = $1";
             $selectResults = pg_query_params($dbconn, $selectQuery, [$username]);
 
             if ($selectResults) {
                 $row = pg_fetch_assoc($selectResults);
                 if ($row && password_verify($_POST["passwordField"], $row["password_hash"])) {
                     $_SESSION["username"] = $row["name"];
+                    $_SESSION["user_id"] = $row["user_id"];
                     header("Location: /dashboard");
                     exit();
                 } else {

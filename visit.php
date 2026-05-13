@@ -32,7 +32,8 @@ if ($result && pg_num_rows($result) > 0) {
         <h1 class="text-4xl font-bold">great<span class="text-[#6674b2]">name</span>.net</h1>
     </header>
     <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full max-w-lg">
-        <div class="p-8 w-full">
+        <?php if ($user['deactivated'] == 'f'): ?>
+            <div class="p-8 w-full">
             <h2 class="text-2xl font-bold mb-2">Profile info</h2>
             <h3 class="text-xl mb-4 text-mist-300">
                 Username: 
@@ -99,10 +100,13 @@ if ($result && pg_num_rows($result) > 0) {
             </p>
         </div>
         <div class="flex gap-4 mt-2">
-            <a href="/dashboard" class="text-blue-500 text-lg hover:underline">Back</a>
+            <a href="/dashboard" class="text-blue-500 text-lg hover:underline">Dashboard</a>
             <span class="text-mist-500 cursor-default">|</span>
             <a href="logout.php" class="text-blue-500 text-lg hover:underline">Log out</a>
         </div>
+        <?php else: ?>
+            <h2 class="text-2xl font-bold mb-2 text-red-500">This user has been deactivated.</h2>
+        <?php endif; ?>
     </main>
     <footer class="mb-5 w-full text-center">
         <p>Copyright &copy; <span id="year"></span> greatname. All rights reserved.</p>

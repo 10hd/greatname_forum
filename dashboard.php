@@ -2,13 +2,18 @@
 session_start();
 include 'db.php';
 
-if (!isset($_SESSION["username"])) {
-    header("Location: /");
-    exit();
-}
+$limit = 10;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) $page = 1;
+$offset = ($page - 1) * $limit;
 
-$query = "SELECT user_id, name, emoji, deactivated FROM accounts ORDER BY user_id ASC";
-$result = pg_query($dbconn, $query);
+$query = "SELECT user_id, name, emoji, deactivated FROM accounts ORDER BY user_id ASC LIMIT $1 OFFSET $2";
+$result = pg_query_params($dbconn, $query, [$limit, $offset]);
+
+$countQuery = "SELECT count(*) FROM accounts";
+$countResult = pg_query($dbconn, $countQuery);
+$totalUsers = pg_fetch_result($countResult, 0, 0);
+$totalPages = ceil($totalUsers / $limit);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,11 +32,17 @@ $result = pg_query($dbconn, $query);
 
     <main class="flex flex-col gap-4 justify-center flex-1 items-center w-full max-w-lg px-4">
         <div class="p-6 w-full">
+            <h2 class="text-xl font-bold mb-4 border-b border-mist-400 pb-2 px-2">Join a Room</h2>
+            <div class="p-6 w-full flex flex-col justify-center flex-1 items-center">
+                <a href="/global" class="mt-6 bg-[#6674b2] opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold w-80 py-2 px-4 rounded-full hover:cursor-pointer transition-colors">Global Room</a>
+                <a href="" class="mt-6 bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold w-80 py-2 px-4 rounded-full hover:cursor-pointer transition-colors">Private Room</a>
+            </div>
+        </div>
+        <div class="p-6 w-full">
             <h2 class="text-xl font-bold mb-4 border-b border-mist-400 pb-2 px-2">ID list</h2>
             <ul class="flex flex-col gap-2">
                 <?php 
-                while ($row = pg_fetch_assoc($result)): 
-                ?>
+                while ($row = pg_fetch_assoc($result)): ?>
                     <li class="flex items-center gap-3 py-1 px-2 rounded hover:bg-zinc-900">
                         <span class="text-mist-400 text-md px-1">uid <?php echo $row['user_id']; ?>:</span>
                         <?php
@@ -46,6 +57,21 @@ $result = pg_query($dbconn, $query);
                     </li>
                 <?php endwhile; ?>
             </ul>
+            <div class="flex justify-between items-center mt-4 px-2">
+                <?php if ($page > 1): ?>
+                <a href="?page=<?php echo $page - 1; ?>" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-1 px-4 rounded-lg transition-colors">Prev</a>
+                <?php else: ?>
+                <span class="text-zinc-600 cursor-default py-1 px-4">Prev</span>
+                <?php endif; ?>
+                
+                <span class="text-md text-zinc-500"><?php echo $page; ?></span>
+                
+                <?php if ($page < $totalPages): ?>
+                    <a href="?page=<?php echo $page + 1; ?>" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-1 px-4 rounded-lg transition-colors">Next</a>
+                <?php else: ?>
+                <span class="text-zinc-600 cursor-default py-1 px-4">Next</span>
+                <?php endif; ?>
+            </div>
         </div>
 
         <div class="flex gap-4 mt-2">
