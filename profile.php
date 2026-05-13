@@ -7,7 +7,7 @@ if (!isset($_SESSION["username"])) {
     exit();
 }
 
-$query = "SELECT user_id, created_at, deactivated, is_admin, has_title FROM accounts WHERE name = $1";
+$query = "SELECT user_id, created_at, deactivated, is_admin, has_title, description FROM accounts WHERE name = $1";
 $result = pg_query_params($dbconn, $query, [$_SESSION["username"]]);
 
 if ($result) {
@@ -92,11 +92,13 @@ if ($result) {
                 <br>
                 Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Alive'; ?></span>
             </h3>
+            <form action="description.php" method="POST" class="flex flex-col gap-2">
             <h4 class="text-xl font-bold mb-2">Description:</h4>
-            <p class="text-mist-300 text-lg mb-4">
-                <?php echo htmlspecialchars($user['description'] ?? 'No description set.'); ?>
-                <a href="description.php" class="text-blue-500 hover:underline">Edit Description</a>
-            </p>
+              <p class="text-mist-300 text-lg mb-4">
+                  <input type="text" name="new_description" value="<?php echo htmlspecialchars($user['description'] ?? ''); ?>" class="bg-transparent border-b border-mist-400 focus:outline-none focus:ring-0 flex-1 text-mist-300 text-lg">
+                  <button type="submit" class="text-blue-500 text-lg hover:underline cursor-pointer">Edit Description</button>
+              </p>
+            </form>
         </div>
         <div class="flex gap-4 mt-2">
             <a href="/dashboard" class="text-blue-500 text-lg hover:underline">Back</a>
