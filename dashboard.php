@@ -7,7 +7,7 @@ if (!isset($_SESSION["username"])) {
     exit();
 }
 
-$query = "SELECT user_id, name FROM accounts ORDER BY user_id ASC";
+$query = "SELECT user_id, name, emoji, deactivated FROM accounts ORDER BY user_id ASC";
 $result = pg_query($dbconn, $query);
 ?>
 <!DOCTYPE html>
@@ -34,10 +34,15 @@ $result = pg_query($dbconn, $query);
                 ?>
                     <li class="flex items-center gap-3 py-1 px-2 rounded hover:bg-zinc-900">
                         <span class="text-mist-400 text-md px-1">uid <?php echo $row['user_id']; ?>:</span>
-                        <a href="/visit?id=<?php echo $row['name']; ?>" 
-                           class="text-lg text-blue-500 hover:underline">
+                        <?php
+                        if ($row['deactivated'] == 'f'): ?> 
+                            <a href="/visit?id=<?php echo $row['name']; ?>" class="text-lg text-blue-500 hover:underline">
+                            <?php echo htmlspecialchars($row['emoji']);?>
                             <?php echo htmlspecialchars($row['name']);?>
-                        </a>
+                            </a>
+                        <?php else: ?>
+                            <span class="text-gray-500 italic cursor-default">Deactivated</span>
+                        <?php endif; ?>
                     </li>
                 <?php endwhile; ?>
             </ul>

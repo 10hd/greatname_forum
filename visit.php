@@ -8,7 +8,7 @@ if (!$target_id) {
     die("No username specified.");
 }
 
-$query = "SELECT user_id, name, created_at, deactivated, is_admin, has_title, description FROM accounts WHERE name = $1";
+$query = "SELECT user_id, name, created_at, deactivated, is_admin, has_title, description, emoji FROM accounts WHERE name = $1";
 $result = pg_query_params($dbconn, $query, [$target_id]);
 
 if ($result && pg_num_rows($result) > 0) {
@@ -89,9 +89,13 @@ if ($result && pg_num_rows($result) > 0) {
                 <br>
                 Account status: <span class="text-mist-400"><?php echo ($user['deactivated'] === 't') ? 'Deactivated' : 'Alive'; ?></span>
             </h3>
-            <h4 class="text-xl font-bold mb-2">Description:</h4>
+            <h4 class="text-lg font-bold mb-1">Description:</h4>
             <p class="text-mist-300 text-lg mb-4">
                 <?php echo htmlspecialchars($user['description'] ?? 'No description set.'); ?>
+            </p>
+            <h4 class="text-lg font-bold mb-1">Emoji:</h4>
+            <p class="text-mist-300 text-lg mb-4">
+                <?php echo htmlspecialchars($user['emoji'] ?? 'No emoji set.'); ?>
             </p>
         </div>
         <div class="flex gap-4 mt-2">
