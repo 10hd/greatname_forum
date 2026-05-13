@@ -59,7 +59,7 @@ $totalPages = ceil($totalUsers / $limit);
             </ul>
             <div class="flex justify-between items-center mt-4 px-2">
                 <?php if ($page > 1): ?>
-                <a href="?page=<?php echo $page - 1; ?>" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-1 px-4 rounded-lg transition-colors">Prev</a>
+                <a href="?page=<?php echo $page - 1; ?>" class="bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold py-1 px-3 rounded-full hover:cursor-pointer transition-colors">Prev</a>
                 <?php else: ?>
                 <span class="text-zinc-600 cursor-default py-1 px-4">Prev</span>
                 <?php endif; ?>
@@ -67,7 +67,7 @@ $totalPages = ceil($totalUsers / $limit);
                 <span class="text-md text-zinc-500"><?php echo $page; ?></span>
                 
                 <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?php echo $page + 1; ?>" class="bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-1 px-4 rounded-lg transition-colors">Next</a>
+                    <a href="?page=<?php echo $page + 1; ?>" class="bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold py-1 px-3 rounded-full hover:cursor-pointer transition-colors">Next</a>
                 <?php else: ?>
                 <span class="text-zinc-600 cursor-default py-1 px-4">Next</span>
                 <?php endif; ?>
