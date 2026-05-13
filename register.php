@@ -18,11 +18,12 @@
             <h2 class="text-2xl font-bold mb-4 text-center">Registration & Login</h2>
             <div>
                 <p class="text-lg text-mist-400 pl-4">Username</p>
-                <input class="bg-mist-200 text-black rounded-full mb-4 mt-1 w-full p-2" type="text" name="usernameField" id="usernameInput">
+                <input class="bg-mist-200 text-black rounded-full mb-7 mt-1 w-full p-2" type="text" name="usernameField" id="usernameInput">
             </div>
             <div>
                 <p class="text-lg text-mist-400 pl-4">Email <span class="text-sm float-right bg-gray-500 opacity-50 text-white p-1 rounded-full mr-2">optional</span></p>
-                <input class="bg-mist-200 text-black rounded-full mb-4 mt-1 w-full p-2" type="text" name="emailField" id="emailInput">
+                <input class="peer bg-mist-200 text-black rounded-full mb-1 mt-1 w-full p-2" type="text" name="emailField" id="emailInput">
+                <p class="invisible peer-focus:visible text-red-400 text-sm ml-4 mb-1">Only required to reset password later.</p>
             </div>
             <div>
                 <p class="text-lg text-mist-400 pl-4">Password <a href="resetPassword.php" class="text-sm text-blue-500 float-right opacity-80 p-1 mr-2 hover:underline">forgot?</a></p>
