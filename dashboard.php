@@ -39,7 +39,23 @@ $totalPages = ceil($totalUsers / $limit);
             </div>
         </div>
         <div class="p-6 w-full">
-            <h2 class="text-xl font-bold mb-4 border-b border-mist-400 pb-2 px-2">ID list</h2>
+            <div class="flex justify-between items-center px-2 border-b border-mist-400 mb-4">
+                <h2 class="text-xl font-bold mb-1 basis-1/2">ID list</h2>
+                <?php if ($page > 1): ?>
+                <a href="?page=<?php echo $page - 1; ?>" class="mb-2 bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold py-1 px-3 rounded-full hover:cursor-pointer transition-colors">Prev</a>
+                <?php else: ?>
+                <span class="text-zinc-600 cursor-default py-1 px-4">Prev</span>
+                <?php endif; ?>
+
+                <span class="text-md text-zinc-500 mb-1"><?php echo $page; ?></span>
+            
+                <?php if ($page < $totalPages): ?>
+                <a href="?page=<?php echo $page + 1; ?>" class="mb-2 bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold py-1 px-3 rounded-full hover:cursor-pointer transition-colors">Next</a>
+                <?php else: ?>
+                <span class="text-zinc-600 cursor-default py-1 px-4">Next</span>
+                <?php endif; ?>
+            </div>
+            
             <ul class="flex flex-col gap-2">
                 <?php 
                 while ($row = pg_fetch_assoc($result)): ?>
@@ -57,21 +73,6 @@ $totalPages = ceil($totalUsers / $limit);
                     </li>
                 <?php endwhile; ?>
             </ul>
-            <div class="flex justify-between items-center mt-4 px-2">
-                <?php if ($page > 1): ?>
-                <a href="?page=<?php echo $page - 1; ?>" class="bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold py-1 px-3 rounded-full hover:cursor-pointer transition-colors">Prev</a>
-                <?php else: ?>
-                <span class="text-zinc-600 cursor-default py-1 px-4">Prev</span>
-                <?php endif; ?>
-                
-                <span class="text-md text-zinc-500"><?php echo $page; ?></span>
-                
-                <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?php echo $page + 1; ?>" class="bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold py-1 px-3 rounded-full hover:cursor-pointer transition-colors">Next</a>
-                <?php else: ?>
-                <span class="text-zinc-600 cursor-default py-1 px-4">Next</span>
-                <?php endif; ?>
-            </div>
         </div>
 
         <div class="flex gap-4 mt-2">
