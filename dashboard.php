@@ -35,7 +35,7 @@ $totalPages = ceil($totalUsers / $limit);
             <h2 class="text-xl font-bold mb-4 border-b border-mist-400 pb-2 px-2">Join a Room</h2>
             <div class="p-6 w-full flex flex-col justify-center flex-1 items-center">
                 <a href="/global" class="mt-6 bg-[#6674b2] opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold w-80 py-2 px-4 rounded-full hover:cursor-pointer transition-colors">Global Room</a>
-                <a href="" class="mt-6 bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold w-80 py-2 px-4 rounded-full hover:cursor-pointer transition-colors">Private Room</a>
+                <a href="/private" class="mt-6 bg-gray-500 opacity-80 border-2 border-transparent hover:bg-slate-800 hover:border-white text-white font-bold w-80 py-2 px-4 rounded-full hover:cursor-pointer transition-colors">Private Room</a>
             </div>
         </div>
         <div class="p-6 w-full">
@@ -63,7 +63,7 @@ $totalPages = ceil($totalUsers / $limit);
                         <span class="text-mist-400 text-md px-1">uid <?php echo $row['user_id']; ?>:</span>
                         <?php
                         if ($row['deactivated'] == 'f'): ?> 
-                            <a href="/visit?id=<?php echo $row['name']; ?>" class="text-lg text-blue-500 hover:underline">
+                            <a href="/visit?id=<?php echo $row['name']; ?>" class="text-lg font-bold text-blue-500 hover:underline">
                             <?php echo htmlspecialchars($row['emoji']);?>
                             <?php echo htmlspecialchars($row['name']);?>
                             </a>

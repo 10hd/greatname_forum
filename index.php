@@ -23,6 +23,10 @@ switch ($request) {
         require __DIR__ . '/global.php';
         exit();
 
+    case '/private':
+        require __DIR__ . '/private.php';
+        exit();
+
     default:
         http_response_code(404);
         require __DIR__ . '/404.php';

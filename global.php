@@ -18,7 +18,7 @@ $result = pg_query($dbconn, $query);
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="shortcut icon" href="coliseum.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <title>greatname.net | Dashboard</title>
+    <title>greatname.net | Global</title>
 </head>
 <body class="bg-black text-white flex flex-col min-h-screen items-center m-0 p-0 h-full">
     <header class="mt-5">
@@ -26,11 +26,17 @@ $result = pg_query($dbconn, $query);
     </header>
 
     <main class="flex flex-col justify-center flex-1 items-center w-full px-4">
-        <div class="flex-1 w-full mt-6 border border-zinc-800 rounded-t-xl overflow-y-auto p-4 flex flex-col gap-3 h-[500px]" id="chatBox">
+        <div class="text-center mb-2">
+            <h2 class="text-3xl font-bold mt-6">Global</h2>
+        </div>
+        <div class="flex-1 w-full mt-2 border border-zinc-800 rounded-t-xl overflow-y-auto p-4 flex flex-col gap-3 h-[500px]" id="chatBox">
             <?php while ($row = pg_fetch_assoc($result)): ?>
             <div class="flex flex-col">
-                <a href="/visit?id=<?php echo $row['name']; ?>" class="text-sm text-zinc-500 mb-1 hover:text-blue-500 hover:underline"><?php echo htmlspecialchars($row['emoji'] . ' ' . $row['name']); ?></a>
-                <p class="bg-zinc-800 p-2 rounded-lg text-sm max-w-max"><?php echo htmlspecialchars($row['content']); ?></p>
+                <div class="flex">
+                    <a href="/visit?id=<?php echo $row['name']; ?>" class="text-md font-bold text-zinc-500 mb-1 hover:text-blue-500 hover:underline"><?php echo htmlspecialchars($row['emoji'] . ' ' . $row['name']); ?></a>
+                    <span class="text-sm mt-0.5 text-zinc-600 ml-2"><?php $date = new DateTime($row['sent_at']); echo $date->format('d/m/Y H:i'); ?></span>
+                </div>
+                <p class="bg-zinc-800 p-2 rounded-lg text-md max-w-max"><?php echo htmlspecialchars($row['content']); ?></p>
             </div>
             <?php endwhile; ?>
         </div>
