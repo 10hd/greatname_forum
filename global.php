@@ -33,14 +33,12 @@ $result = pg_query($dbconn, $query);
             <?php while ($row = pg_fetch_assoc($result)): ?>
             <div class="flex flex-col">
                 <div class="flex">
-                <?php 
-                $nameColor = ($row['is_admin'] === 't' || $row['is_admin'] === true) ? 'text-[#FF0000]' : 'text-zinc-500';
-                ?>
-                <a href="/visit?id=<?php echo $row['name']; ?>" class="text-md font-bold <?php echo $nameColor; ?> mb-1 hover:text-blue-500 hover:underline"><?php echo htmlspecialchars($row['emoji'] . ' ' . $row['name']); ?></a>
-    <span class="text-sm mt-0.5 text-zinc-600 ml-2">
-        <?php $date = new DateTime($row['sent_at']); echo $date->format('d/m/Y H:i'); ?>
-    </span>
-</div>
+                    <?php 
+                    $nameColor = ($row['is_admin'] === 't' || $row['is_admin'] === true) ? 'text-[#FF0000]' : 'text-zinc-500';
+                    ?>
+                    <a href="/visit?id=<?php echo $row['name']; ?>" class="text-md font-bold <?php echo $nameColor; ?> mb-1 hover:text-blue-500 hover:underline"><?php echo htmlspecialchars($row['emoji'] . ' ' . $row['name']); ?></a>
+                    <span class="text-sm mt-0.5 text-zinc-600 ml-2"><?php $date = new DateTime($row['sent_at']); echo $date->format('d/m/Y H:i'); ?></span>
+                </div>
                 <p class="bg-zinc-800 p-2 rounded-lg text-md max-w-max"><?php echo htmlspecialchars($row['content']); ?></p>
             </div>
             <?php endwhile; ?>
