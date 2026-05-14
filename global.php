@@ -7,7 +7,7 @@ if (!isset($_SESSION["username"])) {
     exit();
 }
 
-$query = "SELECT m.content, m.sent_at, a.name, a.emoji FROM global_chat m JOIN accounts a ON m.user_id = a.user_id WHERE m.is_deleted = false ORDER BY m.sent_at ASC LIMIT 100";
+$query = "SELECT m.content, m.sent_at, a.name, a.emoji FROM global_chat m JOIN accounts a ON m.user_id = a.user_id WHERE m.is_deleted = false AND m.chat_id = 0 ORDER BY m.sent_at ASC LIMIT 100";
 $result = pg_query($dbconn, $query);
 ?>
 <!DOCTYPE html>
